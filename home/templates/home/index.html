@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        {% load static %}
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>
+            {% block my_blog_title %}
+                Home
+            {% endblock %}
+        </title>
+        <link rel="icon" type="image/x-icon" href="{% static 'home/assets/pelota.ico' %}" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'home/css/styles.css' %}" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="{% url 'home:index' %}">FIFAINDEX</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'federations:federations-list' %}">Federaciones</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'teams:teams-list' %}">Equipos</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'players:players-list' %}">Jugadores</a></li>   
+                        
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        
+                        {% if not user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:user-register' %}">Registrate</a></li>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:user-update' %}">Editar usuario</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Cerrar Sesión - {{ user.username }}</a></li>                  
+                        {% else %}
+                        <!--<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'home:login' %}">Iniciar Sesión</a></li>-->
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                        {% endif %}
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+        <!-- Page Header-->
+        {% block my_blog_header %}
+        <header class="masthead" style="background-image: url('../../static/home/assets/img/futbol_2.jpg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="site-heading">
+                            {% if user.is_authenticated %}
+                                <h3>¡Bienvenido, {{ user.first_name }} {{ user.last_name }}!</h3>
+                            {% else %}
+                                <h1>FIFAINDEX</h1>
+                                <span class="subheading">Buscá federaciones, equipos y jugadores de la FIFA.</span>
+                            {% endif %}
+                            {% if avatar_url %}
+                                <a href="{% url 'home:avatar' %}"><img height="260px" src="{{avatar_url}}"></a>
+                            {% endif %}
+ 
+                        </div>
+
+                    </div>
+                </div>
+                 <!-- <div style="background-color: #ffffff; width: 87%;" color>Avatar URL: {{ avatar_url }}</div> -->
+                 {% if not avatar_url %}
+             {% endif %}
+            </div>
+        </header>
+        {% endblock %}
+        <!-- Messages-->
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert {{ message.tags }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                        <!-- Divider-->
+                        <hr class="my-4" />
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- Main Content-->
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- Post preview-->
+                    {% block my_blog_content %}
+
+                    <!-- Buscador -->
+                    <h2 style="text-align:center">Buscar federaciones</h2>
+                    <form action="{% url 'home:search' %}" method="GET">
+                        <div style="text-align: center;">
+                            <input type="text" name="search_param" id="course_code_or_name" placeholder="Nombre de la federación"
+                            {% if search_param %} value="{{ search_param }}" {% endif %}
+                            >
+                            <input type="submit" value="Buscar">
+                            <a style="color: rgb(139, 139, 146)" href="{% url 'home:index' %}"><i class="fa fa-undo"></i></a>
+                        </div>
+                    </form>
+                    <!-- Divider-->
+                    <hr class="my-4" />
+
+                    <!-- Si hay resultados en el buscador los presenta -->
+                    {% if federations %}
+                    {% for federation in federations %}
+                        <!-- Post preview-->
+                        <div class="post-preview">
+                            <h2 class="post-title">Federación: {{ federation.name }}</h2>
+                            <h3 class="post-subtitle">Sigla: {{ federation.initials }}</h3>
+                            <p class="post-meta">
+                                Creado por
+                                <a href="#!">FIFA</a> 
+                            </p>
+                        </div>
+                        <!-- Divider-->
+                        <hr class="my-4" />
+                    {% endfor %}
+                    {% endif %}
+                    
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        <!-- Footer-->
+        <footer class="border-top">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item">
+                                <a href="{% url 'home:about' %}">
+                                    Acerca de
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="small text-center text-muted fst-italic">Copyright &copy; FIFAINDEX 2022</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'home/js/scripts.js' %}"></script>
+    </body>
+</html>

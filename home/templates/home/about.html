@@ -1,0 +1,50 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block my_blog_title %}
+Acerca de
+{% endblock %}
+
+{% block my_blog_header %}
+    <header class="masthead" style="background-image: url('../../static/home/assets/img/PLAYERS.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-15 col-lg-16 col-xl-14">
+                    <div class="site-heading">
+                        <h1>FIFAINDEX</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+
+{% block my_blog_content %}
+    <!-- Title- team-->
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-8 grid text-center">
+                <p class="about-title" style="text-align:center"><strong>¿Qué es FIFAINDEX?</strong></p>
+                <p class="about-description"><strong>FIFAINDEX</strong> surge como propuesta de trabajo final para el curso de Python dictado por Coderhouse. Desarrollado por Jonathan Ezequiel Veltri.</p>
+                <br>
+                
+            </div>
+        </div>
+      </div>
+    <!-- Title- team-->
+    <div class="container">
+        <div class="row grid text-center">
+          <div class="col-sm">
+              <img class="img-fluid rounded-circle mx-auto px-4"
+                      src="https://media.licdn.com/dms/image/C4D03AQHV--X4addcQQ/profile-displayphoto-shrink_200_200/0/1614231848257?e=1677110400&v=beta&t=s9xzO0YX9VN6E1biYH8_89dJ4Pa1bsMzCUmeYd0CgEY"
+                      width="200" height="50" alt="..." />
+              <div class="card-body">
+                <h5 style="text-align:center" class="card-title">Jonathan Ezequiel Veltri</h5>
+                <p style="text-align:center" class="card-text">Estudiante de Ingenieria en Informatica, <br>Data Scientist en proceso.</p>
+              </div>
+          </div>
+        </div>
+      </div>
+
+    
+{% endblock %}
