@@ -22,13 +22,6 @@ Desarrollado por: Jonathan Ezequiel Veltri
 ### 1. Abrir Git Bash para `Windows` o una terminal para `Linux`.
 
 ### 2. Crear directorio donde se va a alojar el proyecto
-En este caso en particular se alojaría en la carpeta ProyectoFinal dentro de Documents
-```bash
-cd
-mkdir -p Documents/ProyectoFinal
-cd Documents/ProyectoFinal
-ls 
-```
 
 - Clonar el proyecto
 ```bash
