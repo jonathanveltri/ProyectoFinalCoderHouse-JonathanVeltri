@@ -1,0 +1,50 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block my_blog_title %}
+Federations
+{% endblock %}
+
+{% block my_blog_header %}
+    <header class="masthead" style="background-image: url('/static/home/assets/img/FIFA.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-15 col-lg-16 col-xl-14">
+                    <div class="site-heading">
+                        <h1>Detalle de Federacion</h1>
+                        <span class="subheading">My blog CoderHouse</span>
+                    </div>
+                </div>
+            </div>
+            <a class="button_custom" href="{% url 'federations:federation-add' %}">Incluir</a>
+        </div>
+    </header>
+{% endblock %}
+
+{% block my_blog_content %}
+        <!-- Post preview-->
+    <div class="post-preview">
+        <center>
+            <h3 class="post-subtitle">{{ federation.name }} </h3>
+            <h3 class="post-subtitle">{{ federation.initials }} </h3>
+        </center>
+        <!-- Image -->
+        {% if federation.image %}
+            <div style="text-align: center;">
+                <img height="250px" src="{{ federation.image.url }}">
+            </div>
+        {% endif %}
+        <p class="card-text ">{{ federation.description|safe }}</p> <!-- ckeditor-->
+        {% if user == federation.owner or user.is_superuser %}
+            <p style="text-align: center">
+                <a href="{% url 'federations:federation-update' federation.id %}">
+                    <i class="fa fa-pencil" style="color: #1c1c91;"></i> Editar
+                </a>
+                &ensp; | &ensp;
+                <a href="{% url 'federations:federation-delete' federation.id %}">
+                    <i class="fa fa-trash" style="color: #881a1a;"></i> Eliminar 
+                </a>
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

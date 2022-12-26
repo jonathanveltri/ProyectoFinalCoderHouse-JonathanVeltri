@@ -1,0 +1,40 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block my_blog_title %}
+Federations
+{% endblock %}
+
+{% block my_blog_header %}
+    <header class="masthead" style="background-image: url('/static/home/assets/img/FIFA.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-15 col-lg-16 col-xl-14">
+                    <div class="site-heading">
+                        <h1>Federaciones</h1>
+                        <span class="subheading">Listado de federaciones FIFA</span>
+                    </div>
+                </div>
+            </div>
+            <a class="button_custom" href="{% url 'federations:federation-add' %}">Incluir</a>
+        </div>
+    </header>
+{% endblock %}
+
+{% block my_blog_content %}
+{% if not federations %}
+        <div class="small text-center text-muted fst-italic">No existen federaciones en la base de datos para mostrar</div>
+{% endif %}
+{% for federation in federations %}
+        <!-- Post preview-->
+        <div class="post-preview">
+            <a href="{% url 'federations:federation-detail' federation.id %}">
+                <h3 class="post-title">Federación: {{ federation.name }} </h3>
+                <h3 class="post-subtitle">Sigla: {{ federation.initials }}</h3>
+            </a>
+            <h3 class="post-subtitle">Sitio oficial: {{ federation.official_website }}</h3>
+        </div>
+        <!-- Divider-->
+        <hr class="my-4" />
+    {% endfor %}
+{% endblock %}
