@@ -1,0 +1,43 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block my_blog_title %}
+Players
+{% endblock %}
+
+{% block my_blog_header %}
+    <header class="masthead" style="background-image: url('/static/home/assets/img/PLAYERS.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-15 col-lg-16 col-xl-14">
+                    <div class="site-heading">
+                        <h1>Jugadores</h1>
+                        <span class="subheading">Listado de jugadores profesionales</span>
+                    </div>
+                </div>
+            </div>
+            <a class="button_custom" href="{% url 'players:player-add' %}">Incluir nuevo jugador</a>
+        </div>
+    </header>
+{% endblock %}
+
+{% block my_blog_content %}
+    {% if not player_list %}
+        <div class="small text-center text-muted fst-italic">No existen jugadores en la base de datos para mostrar</div>
+    {% endif %}
+    {% for player in player_list %}
+    <!-- Post preview-->
+        <div class="post-preview">
+            <a href="{% url 'players:player-detail' player.id %}">
+                <center>
+                    <h1 class="post-title">{{ player.name }} {{ player.last_name }}</h3>
+                </center>
+            </a>
+            <h3 class="post-subtitle">Equipo: {{ player.team }}</h3>
+            <h3 class="post-subtitle">Número: {{ player.number }}</h3>
+            <h3 class="post-subtitle">Posición: {{ player.position }}</h3>
+        </div>
+        <!-- Divider-->
+        <hr class="my-4" />
+    {% endfor %}
+{% endblock %}

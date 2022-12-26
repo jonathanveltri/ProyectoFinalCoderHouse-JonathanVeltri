@@ -1,0 +1,37 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block my_blog_title %}
+Teams
+{% endblock %}
+
+{% block my_blog_header %}
+    <header class="masthead" style="background-image: url('/static/home/assets/img/TEAMS.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-15 col-lg-16 col-xl-14">
+                    <div class="site-heading">
+                        <h1>Equipos</h1>
+                        <span class="subheading">Listado de equipos FIFA</span>
+                    </div>
+                </div>
+            </div>
+            <a class="button_custom" href="{% url 'teams:team-add' %}">Incluir nuevo equipo</a>
+        </div>
+    </header>
+{% endblock %}
+
+{% block my_blog_content %}
+{% for team in teams %}
+        <!-- Post preview-->
+        <div class="post-preview">
+            <h3 class="post-title">Equipo: {{ team.name }} </h3>
+            <h3 class="post-subtitle">Federación: {{ team.federation }}</h3>
+            <h3 class="post-subtitle">País: {{ team.country }}</h3>
+            <h3 class="post-subtitle">Ciudad: {{ team.city }}</h3>
+            <h3 class="post-subtitle">Fecha de fundación: {{ team.fundation_date }}</h3>
+        </div>
+        <!-- Divider-->
+        <hr class="my-4" />
+    {% endfor %}
+{% endblock %}
